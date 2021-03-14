@@ -5,7 +5,7 @@ from pyspark.sql import functions as func
 from pyspark.sql.types import IntegerType, StringType, StructType, StructField
 
 now = time.time()
-POSTGRESQL_JDBC_PATH = "postgresql-42.2.19.jar" # Change this path to your own
+POSTGRESQL_JDBC_PATH = "/usr/share/java/postgresql-42.2.19.jar" # Change this path to your own
 spark = SparkSession.builder.appName("PysparkMovies").config("spark.jars", POSTGRESQL_JDBC_PATH).getOrCreate()
 print(f"Creating spark session time: {time.time() - now} s\n")
 
@@ -52,7 +52,7 @@ now = time.time()
 ratingsDF = ratingsDF.alias('ratings')
 moviesDF = moviesDF.alias('movies')
 joinedDF = ratingsDF.join(moviesDF, func.col('ratings.movieID') == func.col('movies.movieID')) \
-            .select('ratings.*', 'movies.*')
+            .select('ratings.*', 'movies.movieTitle', 'movies.genres')
 print(f"Joining ratings and movies dataframes: {time.time() - now} s\n")
 
 now = time.time()
