@@ -61,7 +61,7 @@ ratingsAvgDF = ratingsDF["movieID","ratingPercent"].groupBy("movieID").avg()
 print(f"Creating rating average per movieID dataframe: {time.time() - now} s\n")
 
 now = time.time()
-joined.repartition(10) \
+joinedDF.repartition(10) \
     .write.format('jdbc').options(
         url='jdbc:postgresql://localhost:5432/iykra',
         driver='org.postgresql.Driver',
