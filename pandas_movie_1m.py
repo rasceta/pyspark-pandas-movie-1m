@@ -34,7 +34,7 @@ rating_avg_df = joined_df[["movieID", "ratingPercent"]].groupby("movieID").mean(
 print(f"Creating rating average per movieID dataframe: {time.time() - now} s\n")
 
 now = time.time()
-joined_df.to_sql('ratings_pandas', engine)
+joined_df.to_sql('ratings_pandas', engine, index=False)
 print(f"Writing joined dataframe to postgresql: {time.time() - now} s\n")
 
 print(f"Total time: {time.time() - start_time} s")
